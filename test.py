@@ -34,7 +34,7 @@ def check_image(image):
 def test(image, model_dir, device_id):
     model_test = AntiSpoofPredict(device_id)
     image_cropper = CropImage()
-    # image = cv2.imread(SAMPLE_IMAGE_PATH + image_name)
+    # image = cv2.imread(SAMPLE_IMAGE_PATH + image)
     image = cv2.resize(image, (int(image.shape[0] * 3 / 4), image.shape[0]))
     result = check_image(image)
     if result is False:
@@ -64,7 +64,9 @@ def test(image, model_dir, device_id):
     label = np.argmax(prediction)
     value = prediction[0][label]/2
 
-    return label
+
+
+    return label, value
 
 
 if __name__ == "__main__":
@@ -86,4 +88,4 @@ if __name__ == "__main__":
         default="image_F1.jpg",
         help="image used to test")
     args = parser.parse_args()
-    test(args.image_name, args.model_dir, args.device_id)
+    print(test(args.image_name, args.model_dir, args.device_id))
